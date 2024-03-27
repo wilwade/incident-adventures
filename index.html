@@ -1,79 +1,372 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Incident Adventures</title>
     <style>
+        /*! Reduced version of normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+        html {
+            line-height: 1.15;
+            /* 1 */
+            -webkit-text-size-adjust: 100%;
+            /* 2 */
+        }
+
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #1a1a1a;
-            color: #c0c0c0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+        }
+
+        hr {
+            box-sizing: content-box;
+            /* 1 */
+            height: 0;
+            /* 1 */
+            overflow: visible;
+            /* 2 */
+        }
+
+        pre {
+            font-family: monospace, monospace;
+            /* 1 */
+            font-size: 1em;
+            /* 2 */
+        }
+
+        b,
+        strong {
+            font-weight: bolder;
+        }
+
+        code,
+        kbd,
+        samp {
+            font-family: monospace, monospace;
+            /* 1 */
+            font-size: 1em;
+            /* 2 */
+        }
+
+        img {
+            border-style: none;
+        }
+
+
+        /*
+        // Dark: #011627
+        // Blue: #388697;
+        // Light: #C9EDDC
+        // Bright Orange: #EC4E20
+        // Dull Red: #982649
+        */
+        :root {
+            --bg: #011627;
+            --fg: #C9EDDC;
+            --separator: #388697;
+            --alt-bg: #EC4E20;
+            --alt-fg: #011627;
+        }
+
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: var(--bg);
+            color: var(--fg);
             margin: 0;
             padding: 0;
         }
+
         header {
-            text-align: center;
-            padding: 20px;
+            padding: min(200px, 20vh) 20px;
+            flex: 0;
         }
+
         section {
             padding: 20px;
-            margin: 20px;
-            border: 1px solid #333;
-            border-radius: 5px;
+            /*  border: 1px solid var(--separator);*/
         }
+
+        section:nth-of-type(odd) {
+            background: var(--alt-bg);
+            color: var(--alt-fg);
+            padding-right: 300px;
+        }
+        section:nth-of-type(even) {
+            padding-left: 300px;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
         }
-        .ascii-art {
-            font-family: monospace;
-            white-space: pre;
+
+        a,
+        a:visited {
+            color: inherit;
         }
+        
+        .circle-50 {
+            height: 50px;
+            width: 50px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: var(--fg);
+            display: inline-block;
+        }
+        .circle-100 {
+            height: 100px;
+            width: 100px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: var(--fg);
+        }
+        .wave {
+--mask:
+    radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px  repeat-y,
+    radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px  repeat-y;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+          position: fixed;
+          background: var(--fg);
+          width: max(300px, 20vw);
+          height: 100vh;
+          z-index: -1;
+}
+    .wave-right {
+    --mask:
+    radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px  repeat-y,
+    radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px  repeat-y;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+          position: fixed;
+          top: -152px;
+          background: var(--bg);
+          right: 0;
+          width: max(300px, 20vw);
+          height: calc(100vh + 152px);
+          z-index: 1;
+}
+    .flex {
+        display: flex;  
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background: var(--fg);
+        border-radius: 50%;
+    }
+    
+    #title {
+        line-height: 1;
+        padding-left: 70px
+    }
+    
+    section > * {
+        position: relative;
+        z-index: 20;
+    }
     </style>
 </head>
+
 <body>
+    <div class="wave"></div>
+    <div class="wave-right"></div>
     <header>
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24">
-            <path fill="#c0c0c0" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 16h4v-2H10v2zm0-4h4V7h-4v7z"/>
-        </svg>
-        <h1>Incident Adventures</h1>
+        <div class="flex">
+        <div style="position: relative;">
+        <h1 id="title">Incident Adventures</h1>
+        </div>
+        </div>
     </header>
 
     <section>
-        <h2>About Incident Adventures</h2>
-        <p>Incident Adventures is a tabletop roleplaying version of incidents for software engineering teams...</p>
+        <p>
+            Are you prepared for an incident? What will your team actually
+            do when PagerDuty calls? Be prepared with Incident Adventures,
+            the latest way to have fun and get prepared for when the worst
+            happens.
+        </p>
+
+        <p>
+            Inspired by
+            <a href="https://www.escapethispodcast.com" target="_blank">Escape this Podcast</a>
+            and roleplaying games, Incident Adventures gives an easy way to
+            run simulated incidents and responses for your engineering team.
+            Set up a scenario and let your team discover the root cause
+            while learning about what to do along the way.
+        </p>
     </section>
 
     <section>
-        <h2>How It Works</h2>
-        <p>To run Incident Adventures for your team, follow these steps...</p>
+        <h2>Imagination Over Simulation</h2>
+        <p>
+            Incident Adventures are simulated by an Adventure Master (or
+            GM/DM for the tabletop players). Each scenario takes place by
+            doing as much as possible in real life, but as the practice
+            Response Team explores the graphs, logs, and data the Adventure
+            Master will let the team know when they “see” something
+            different. For example, if the scenario’s root cause is that an
+            SSL certificate has expired, the team goes and looks at the
+            production graph for 200’s, the Adventure Master might tell the
+            team that while the chart looks normal in reality, in the
+            scenario, the rate is noticeably lower in the scenario.
+        </p>
+        <p>
+            By using the imagination to simulate, the team exploring the
+            scenario can go look at anything anywhere and the Adventure
+            Master merely needs to be able to tell the team what it would
+            look like as the Adventure Master knows the root cause.
+        </p>
+    </section>
+
+    <h1>How It Works</h1>
+
+    <section>
+        <h2>Preparation</h2>
+        <p>
+            While not much is needed to run an Incident Adventure, some
+            preparation is required.
+        </p>
+
+        <h3>1. Collect a list of root causes</h3>
+        <p>
+            You don’t need very many and they don’t need to be super
+            complex, but it is a good idea to have root causes in various
+            parts of your infrastructure or code. That way each root cause
+            scenario can introduce or refresh the team about that part of
+            your system.
+        </p>
+        <h3>2. Preparing to run the scenario</h3>
+        <p>
+            The Adventure Master running the scenario needs to be
+            knowledgeable enough to know when and how a given root cause
+            would express into whatever the team is exploring. In addition,
+            the Adventure Master or perhaps a helper needs to be able to
+            step in and provide hints or direction if the team is running
+            into a wall.
+        </p>
+
+        <p>
+            Remember: This is about learning and practicing what to do in an
+            incident. Being stuck for too long is not only frustrating, it
+            doesn’t help with the goal of learning.
+        </p>
+        <h3>3. Practice Response Team Size</h3>
+        <p>
+            A practice Response Team should be 2-3 people of about the same
+            level of ability. If you have a team that is unbalanced, let the
+            senior team member know that they should give their junior time
+            to think and respond first.
+        </p>
+
+        <p>
+            It is also possible to have some observers, but observers should
+            be for learning the basics. You don’t want to give observers a
+            false sense of ability. Observers will also increase the
+            pressure, so get permission and senior team members.
+        </p>
+        <h3>4. Time Length</h3>
+        <p>
+            Scenarios should take between 30 to 60 minutes. Two, 30 minute
+            scenarios or a single 45-60 minute scenario is about all that
+            single session should try to do. More than that could be
+            information overload for the team.
+        </p>
     </section>
 
     <section>
-        <h2>Contact Us</h2>
-        <p>If you're interested in running Incident Adventures for your team, contact us at example@email.com.</p>
+        <h2>Getting Started</h2>
+        <p>
+            You have a practice Response Team and your selected root cause, so time to get started with the rules!
+            Here’s a suggested introduction:</p>
+
+        <p>Welcome to Incident Adventures! In just a moment an alert will go off, but first let me set some ground
+            rules.
+        <ol>
+            <li>Talk through what you are doing and what you are looking at. Share your screen if possible.</li>
+            <li>I am your filter to the outside world. I will let you know if something you are looking at is different
+                in our scenario, but I can also be other teams and the customer.</li>
+            <li>This is an open book setup. Search and use the resources you would have in a real incident.</li>
+            <li>We’re here to learn and have fun. I might give you some hints, but getting stuck for a bit is ok.</li>
+        </ol>
+        </p>
+        <h3>The Alert</h3>
+        <p>
+            Let your team know that an alert has occurred. If possible, give them the text of the issue report or
+            specific alert. User reports are also ok. The alert or issue should be true, but also shouldn’t give much
+            away. For example, “increasing 400 responses” or “user reports they cannot access service” are clear
+            starting points, but don’t tell too much about that root cause.
+        </p>
     </section>
 
     <section>
-        <h2>Join the Adventure!</h2>
-        <p>Embark on a journey of software incidents and teamwork like never before...</p>
+        <h2>The Response</h2>
+        <p>75% of the response is just getting started. Just knowing where to find the Standard Operating Procedure, see
+            the logs, or monitoring data is a great start, but some inexperienced teams may need help with this step.
+        </p>
+        <h3>Dead Ends</h3>
+        <p>
+            A good adventure has some dead ends. Take notes on the suggested, but incorrect root causes. They might be
+            great future scenarios for others!
+        </p>
+    </section>
+    <section>
+        <h2>Discovery and Closeout</h2>
+        <p>You will have to determine when to count the root cause as found. Usually it takes two steps: the idea and
+            the confirmation. When the team thinks they have the root cause asking, “How would you confirm that?” is a
+            great way to take it out of speculation.
+        </p>
+        <h3>Solution</h3>
+        <p>Once you have congratulated the team on the discovery of the root cause, some root causes may have the option
+            of asking how they would resolve the issue. This might just be a discussion or having the team bring up the
+            runbook that would be followed.
+        </p>
     </section>
 
     <section>
-        <h2>ASCII Art</h2>
-        <pre class="ascii-art">
-  _______ _                 _     _             
- |__   __| |               | |   | |            
-    | |  | |__   __ _ _ __ | |__ | |_ ___  _ __ 
-    | |  | '_ \ / _   | '_ \| '_ \| __/ _ \| '__|
-    | |  | | | | (_| | | | | | | | || (_) | |   
-    |_|  |_| |_|\__,_|_| |_|_| |_|\__\___/|_|   
-        </pre>
+        <h2>Expansions</h2>
+        <p>
+            Want more? Here are some ideas to set you up for more adventures!
+        </p>
+        <ul>
+            <li>Layered root causes. Why limit yourself to just one?</li>
+            <li>Ticking clock. Want to make it more stressful like a real incident?</li>
+            <li>Additional alerts. Sometimes the first alert is just the first. Having another alert go off during the
+                scenario can help or confuse the team.</li>
+            <li>Run competing teams at a company off-site.</li>
+
+        </ul>
+    </section>
+
+    <section>
+        <h2>Consulting</h2>
+        <p>
+            Want help setting up or running Incident Adventures for your company? Interested in an outside review of
+            your incident planning?
+        </p>
+        <p>
+            Contact: Wil Wade<br />
+            Email: <a href="mailto:wil@incidentadventures.com">wil@incidentadvenures.com</a>
+        </p>
     </section>
 
     <footer>
-        <p>© 2022 Incident Adventures. All rights reserved.</p>
+        <p><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> Wil Wade.</p>
     </footer>
 </body>
+
 </html>
