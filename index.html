@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Incident Adventures</title>
     <style>
-        /*! Reduced version of normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+        /*! Thanks to normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
          html {
              line-height: 1.3;
              -webkit-text-size-adjust: 100%;
@@ -16,11 +16,11 @@
              margin: 0;
         }
          h1 {
-             font-size: 11.391rem;
+             font-size: min(10vw, 11.391rem);
              margin: 0.67em 0;
         }
          h2 {
-             font-size: 7.594rem;
+             font-size: min(8vw, 7.594rem);
              margin: 0.67em 0;
         }
          h3 {
@@ -48,12 +48,8 @@
         }
          code, kbd, samp {
              font-family: monospace, monospace;
-            /* 1 */
              font-size: 1em;
-            /* 2 */
         }
-        /* // Dark: #011627 // Blue: #388697;
-         // Light: #C9EDDC // Bright Orange: #EC4E20 // Dull Red: #982649 */
          :root {
              --bg: #011627;
              --fg: #C9EDDC;
@@ -74,15 +70,14 @@
              flex: 0;
         }
          section {
-             padding: 20px;
+             padding: 20px 0;
         }
          section:nth-of-type(odd) {
              background: var(--alt-bg);
              color: var(--alt-fg);
-             padding-right: min(20vw, 300px);
         }
-         section:nth-of-type(even) {
-             padding-left: min(20vw, 300px);
+         section:nth-of-type(even) > .content {
+             background: var(--alt-fg);
         }
          .content {
              position: relative;
@@ -90,6 +85,8 @@
              max-width: var(--max-width);
              margin-left: auto;
              margin-right: auto;
+             background: inherit;
+             padding: 20px min(20px, 10vw);
         }
          section > ol {
              padding-left: 120px;
@@ -104,27 +101,62 @@
          .wave-container {
              max-width: var(--max-width);
         }
-        /* Thanks to https://css-generators.com/wavy-shapes/ */
-         .wave {
-             --mask: radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px repeat-y, radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px repeat-y;
-             -webkit-mask: var(--mask);
-             mask: var(--mask);
+        .wave-left, .wave-right {
              position: fixed;
-             background: var(--fg);
-             width: min(300px, 20vw);
              height: 100vh;
-             z-index: -1;
         }
-         .wave-right {
-             --mask: radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px repeat-y, radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px repeat-y;
-             -webkit-mask: var(--mask);
-             mask: var(--mask);
-             position: fixed;
-             background: var(--bg);
-             right: 0;
-             width: min(300px, 20vw);
-             height: 100vh;
-             z-index: 1;
+        .wave-left {
+            left: 0;
+            background: var(--fg);
+            z-index: -1;
+        }
+        .wave-right {
+            right: 0;
+            background: var(--bg);
+            z-index 1;
+        }
+        /* Thanks to https://css-generators.com/wavy-shapes/ */
+        .wave-left {
+            --mask: radial-gradient(100px at calc(100% + 57px) 50%,#0000 calc(99% - 10px),#000 calc(101% - 10px) 99%,#0000 101%) calc(50% - 43px + .5px) calc(50% - 152px)/ 86px 304px  repeat-y,
+                    radial-gradient(100px at -57px 50%,#0000 calc(99% - 10px),#000 calc(101% - 10px) 99%,#0000 101%) calc(50% + 43px) 50%/86px 304px  repeat-y;
+            -webkit-mask: var(--mask);
+            mask: var(--mask);
+            min-width: 86px;
+            width: 20vw;
+        }
+        @media (width >= 400px) {
+              section:nth-of-type(odd) {
+                 padding-right: min(20vw, 300px);
+             }
+             section:nth-of-type(even) {
+                 padding-left: min(20vw, 300px);
+             }
+             .wave-right {
+                --mask: radial-gradient(100px at calc(100% + 57px) 50%,#0000 calc(99% - 10px),#000 calc(101% - 10px) 99%,#0000 101%) calc(50% - 43px + .5px) calc(50% - 152px)/ 86px 304px  repeat-y,
+                        radial-gradient(100px at -57px 50%,#0000 calc(99% - 10px),#000 calc(101% - 10px) 99%,#0000 101%) calc(50% + 43px) 50%/86px 304px  repeat-y;
+                -webkit-mask: var(--mask);
+                mask: var(--mask);
+                min-width: 86px;
+                width: 20vw;
+            }
+        }
+        @media (width >= 800px) {
+            .wave-left {
+                --mask: radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px repeat-y,
+                        radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px repeat-y;
+                -webkit-mask: var(--mask);
+                mask: var(--mask);
+                min-width: 186px;
+                width: 20vw;
+            }
+             .wave-right {
+                 --mask: radial-gradient(200px at calc(100% + 114px) 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% - 86px + .5px) calc(50% - 304px)/ 172px 608px repeat-y,
+                         radial-gradient(200px at -114px 50%,#0000 calc(99% - 20px),#000 calc(101% - 20px) 99%,#0000 101%) calc(50% + 86px) 50%/172px 608px repeat-y;
+                 -webkit-mask: var(--mask);
+                 mask: var(--mask);
+                 min-width: 186px;
+                 width: 20vw;
+            }
         }
          .flex {
              display: flex;
@@ -155,9 +187,7 @@
 
 <body>
 <div class="wave-container">
-
-
-    <div class="wave"></div>
+    <div class="wave-left"></div>
     <div class="wave-right"></div>
 </div>
 <header>
@@ -218,23 +248,20 @@
 
         <h4>1. Collect a list of root causes</h4>
         <p>
-            You don’t need very many and they don’t need to be super complex, but it is a good idea to have root causes
-            in
-            various parts of your infrastructure or code. That way each root cause scenario can introduce or refresh the
-            team about that part of your system.
+            You don’t need very many, and they don’t need to be super complex, but it is a good idea to have root causes
+            in various parts of your infrastructure or code. That way each root cause scenario can introduce or refresh
+            the team about that part of your system.
         </p>
         <h4>2. Preparing to run the scenario</h4>
         <p>
             The Adventure Master running the scenario needs to be knowledgeable enough to know when and how a given root
             cause would express into whatever the team is exploring. In addition, the Adventure Master or perhaps a
-            helper
-            needs to be able to step in and provide hints or direction if the team is running into a wall.
+            helper needs to be able to step in and provide hints or direction if the team is running into a wall.
         </p>
 
         <p>
             Remember: This is about learning and practicing what to do in an incident. Being stuck for too long is not
-            only
-            frustrating, it doesn’t help with the goal of learning.
+            only frustrating, but also hinders the goal of learning.
         </p>
         <h4>3. Practice Response Team Size</h4>
         <p>
@@ -245,16 +272,14 @@
 
         <p>
             It is also possible to have some observers, but observers should be for learning the basics. You don’t want
-            to
-            give observers a false sense of ability. Observers will also increase the pressure, so get permission and
-            senior
-            team members.
+            to give observers a false sense of ability. Observers will also increase the pressure, so get permission and
+            senior team members.
         </p>
         <h4>4. Time Length</h4>
         <p>
-            Scenarios should take between 30 to 60 minutes. Two, 30 minute scenarios or a single 45-60 minute scenario
-            is
-            about all that single session should try to do. More than that could be information overload for the team.
+            Scenarios should take between 30 and 60 minutes. Two, 30 minute scenarios or a single 45-60 minute scenario
+            is about all that single session should try to do. More than that could be information overload for the
+            team.
         </p>
     </div>
 </section>
@@ -264,16 +289,18 @@
         <h3>Getting Started</h3>
         <p>
             You have a practice Response Team and your selected root cause, so time to get started with the rules!
-            Here’s a
-            suggested introduction:</p>
+            Here’s a suggested introduction:
+        </p>
 
-        <p>Welcome to Incident Adventures! In just a moment an alert will go off, but first let me set some ground
-            rules.</p>
+        <p>
+            Welcome to Incident Adventures! In just a moment an alert will go off, but first let me set some ground
+            rules.
+        </p>
         <ol>
             <li>Talk through what you are doing and what you are looking at. Share your screen if possible.</li>
-            <li>I am your filter to the outside world. I will let you know if something you are looking at is different
-                in
-                our scenario, but I can also be other teams and the customer.
+            <li>
+                I am your filter to the outside world. I will let you know if something you are looking at is different
+                in our scenario, but I can also be other teams and the customer.
             </li>
             <li>This is an open book setup. Search and use the resources you would have in a real incident.</li>
             <li>We’re here to learn and have fun. I might give you some hints, but getting stuck for a bit is ok.</li>
@@ -282,11 +309,9 @@
         <h4>The Alert</h4>
         <p>
             Let your team know that an alert has occurred. If possible, give them the text of the issue report or
-            specific
-            alert. User reports are also ok. The alert or issue should be true, but also shouldn’t give much away. For
-            example, “increasing 400 responses” or “user reports they cannot access service” are clear starting points,
-            but
-            don’t tell too much about that root cause.
+            specific alert. User reports are also ok. The alert or issue should be true, but also shouldn't give much
+            away. For example, “increasing 400 responses” or “user reports they cannot access service” are clear
+            starting points, but don’t tell too much about that root cause.
         </p>
     </div>
 </section>
@@ -295,32 +320,29 @@
     <div class="content">
         <h3>The Response</h3>
         <p>75% of the response is just getting started. Just knowing where to find the Standard Operating Procedure, see
-            the
-            logs, or monitoring data is a great start, but some inexperienced teams may need help with this step.
+            the logs, or monitoring data is a great start, but some inexperienced teams may need help with this step.
         </p>
         <h4>Dead Ends</h4>
         <p>
             A good adventure has some dead ends. Take notes on the suggested, but incorrect root causes. They might be
-            great
-            future scenarios for others!
+            great future scenarios for others!
         </p>
     </div>
 </section>
 <section>
     <div class="content">
         <h3>Discovery and Closeout</h3>
-        <p>You will have to determine when to count the root cause as found. Usually it takes two steps: the idea and
-            the
-            confirmation. When the team thinks they have the root cause asking, “How would you confirm that?” is a great
-            way
-            to take it out of speculation.
+        <p>
+            You will have to determine when to count the root cause as found. Usually it takes two steps: the idea and
+            the confirmation. When the team thinks they have the root cause asking, “How would you confirm that?” is a
+            great way to take it out of speculation.
         </p>
         <h4>Solution</h4>
-        <p>Once you have congratulated the team on the discovery of the root cause, some root causes may have the option
-            of
-            asking how they would resolve the issue. This might just be a discussion or having the team bring up the
-            runbook
-            that would be followed.
+        <p>
+            Once you have congratulated the team on the discovery of the root cause, some root causes may have the
+            option
+            of asking how they would resolve the issue. This might just be a discussion or having the team bring up the
+            runbook that would be followed.
         </p>
     </div>
 </section>
@@ -348,8 +370,7 @@
         <h2>Consulting</h2>
         <p>
             Want help setting up or running Incident Adventures for your company? Interested in an outside review of
-            your
-            incident planning?
+            your incident planning?
         </p>
         <p>
             Contact: Wil Wade<br/> Email: <a href="mailto:wil@incidentadventures.com">wil@incidentadvenures.com</a>
